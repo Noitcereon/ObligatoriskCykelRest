@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CykelRest.Managers;
 using Microsoft.AspNetCore.Mvc;
+using ObligatoryClassLibrary;
 
 namespace CykelRest.Controllers
 {
@@ -11,7 +12,7 @@ namespace CykelRest.Controllers
     [Route("api/cykler/")]
     public class BicyclesController : ControllerBase
     {
-        private BicycleManager _manager = new BicycleManager();
+        private readonly BicycleManager _manager = new BicycleManager();
 
         [HttpGet]
         public IActionResult GetAll()
@@ -30,10 +31,40 @@ namespace CykelRest.Controllers
         {
             if (_manager.GetOne(id) != null)
             {
-               return Ok(_manager.GetOne(id));
+                return Ok(_manager.GetOne(id));
             }
 
             return NotFound($"Kunne ikke finde en cykel med id {id}");
+        }
+
+        public IActionResult Post(Cykel newBicycle)
+        {
+            if (newBicycle != null)
+            {
+                return Ok(_manager.Post(newBicycle));
+            }
+
+            return BadRequest("Bad request during Post.");
+        }
+
+        public IActionResult Put(int id, Cykel updatedBicycle)
+        {
+            if (GetOne(id) != null)
+            {
+                return Ok(_manager.Put(id, updatedBicycle));
+            }
+
+            return NotFound($"Kunne ikke finde en cykel at opdatere med id {id}");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (_manager.GetOne(id) != null)
+            {
+                return Ok(Delete(id));
+            }
+
+            return NotFound($"Kan ikke slette en cykel som ikke findes (id: {id})");
         }
     }
 }
