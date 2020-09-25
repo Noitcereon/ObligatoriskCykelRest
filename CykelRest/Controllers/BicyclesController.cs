@@ -37,6 +37,7 @@ namespace CykelRest.Controllers
             return NotFound($"Kunne ikke finde en cykel med id {id}");
         }
 
+        [HttpPost]
         public IActionResult Post(Cykel newBicycle)
         {
             if (newBicycle != null)
@@ -47,6 +48,7 @@ namespace CykelRest.Controllers
             return BadRequest("Bad request during Post.");
         }
 
+        [HttpPut]
         public IActionResult Put(int id, Cykel updatedBicycle)
         {
             if (GetOne(id) != null)
@@ -57,6 +59,7 @@ namespace CykelRest.Controllers
             return NotFound($"Kunne ikke finde en cykel at opdatere med id {id}");
         }
 
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             if (_manager.GetOne(id) != null)
