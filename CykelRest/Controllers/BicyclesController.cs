@@ -49,6 +49,7 @@ namespace CykelRest.Controllers
         }
 
         [HttpPut]
+        [Route("{id}")]
         public IActionResult Put(int id, Cykel updatedBicycle)
         {
             if (GetOne(id) != null)
@@ -60,6 +61,7 @@ namespace CykelRest.Controllers
         }
 
         [HttpDelete]
+        [Route("{id}")]
         public IActionResult Delete(int id)
         {
             if (_manager.GetOne(id) != null)
