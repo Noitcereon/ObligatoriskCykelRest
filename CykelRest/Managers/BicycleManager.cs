@@ -31,6 +31,7 @@ namespace CykelRest.Managers
 
         public string Post(Cykel bicycle)
         {
+            bicycle.Id = BicycleIdGenerator();
             Bicycles.Add(bicycle);
             return $"Cykel med id {bicycle.Id} tilføjet.";
         }
